@@ -1,0 +1,51 @@
+﻿@model List<AutoShowcaseApp.Models.Car>
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- HERO -->
+<section class="hero-section">   
+    <div class="hero-content">
+        <div class="hero-badge">Premium Car Dealer</div>
+        <h1 class="hero-title">Drive Your<br /><span>Dream Car</span></h1>
+        <p class="hero-subtitle">Discover exceptional vehicles curated for performance, elegance, and value.</p>
+        <div class="hero-actions">
+            <a asp-controller="Car" asp-action="Index" class="btn-hero-primary">Browse All Cars</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat"><span>@ViewBag.TotalCars</span><small>Cars in Stock</small></div>
+            <div class="stat"><span>50+</span><small>Happy Clients</small></div>
+            <div class="stat"><span>2+</span><small>Years Experience</small></div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">WHY US</span>
+            <h2>The AutoShowcase Difference</h2>
+        </div>
+        <div class="why-grid">
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+                <h4>Verified Listings</h4>
+                <p>Every car is inspected and documented before listing.</p>
+            </div>
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-tags"></i></div>
+                <h4>Best Pricing</h4>
+                <p>Transparent pricing with no hidden fees or surprises.</p>
+            </div>
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-handshake"></i></div>
+                <h4>Easy Inquiries</h4>
+                <p>Contact us directly about any vehicle in minutes.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+

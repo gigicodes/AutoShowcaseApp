@@ -1,0 +1,14 @@
+Id,Make,Model,Year,Price,Color,Description,ImagePath,IsAvailable,DateAdded
+1,Toyota,Camry,2022,18500000,Pearl White,A pristine 2022 Toyota Camry in excellent condition.,/images/cars/camry.jfif,True,01/15/2024 00:00:00
+2,Honda,Accord,2021,16200000,Midnight Black,A well-maintained 2021 Honda Accord Sport Edition.,/images/cars/accord.jfif,True,01/20/2024 00:00:00
+3,Toyota,Land Cruiser Prado,2024,14000000,Dusty Bronze,"A 5-door, 7-seater SUV designed for luxury and off-road capability.",/images/cars/19c80fe1-20a6-465e-9626-966710de0fc3.jfif,True,02/26/2026 01:07:59
+4,Audi,RS Q8,2025,152000000,Silver,"The Audi RS Q8 is a top-tier luxury performance SUV Coupé, functioning as the flagship of the Audi Sport range.",/images/cars/8fa80282-5f88-46c2-89bd-eb6f4f3441c6.jfif,True,02/26/2026 11:54:57
+5,Lamborghini,Urus,2026,590000000,Verde Mantis (Green),"The Lamborghini Urus is a high-performance ""Super Sport Utility Vehicle"" (SSUV), combining the soul of a super sports car with the functionality of an SUV.",/images/cars/6e497415-ead8-431d-96c9-a6617c8d21b7.jfif,True,02/26/2026 11:56:22
+6,Chevorlet,Camaro SS,2022,60000000,Yellow,"It is available as a 2-door coupe or convertible. Key features include 20-inch wheels, Brembo performance brakes, and an available 10-speed automatic or 6-speed manual transmission.",/images/cars/b70ee44e-b69a-4ba1-969f-f897a2337b0e.jfif,False,02/26/2026 11:57:31
+7,Ford,Mustang GT,2025,130000000,Oxford White,"The 2025 Ford Mustang GT is a rear-wheel-drive American muscle car featuring a 5.0L Ti-VCT V8 engine, producing 480–486 horsepower.",/images/cars/cba731a3-8b97-4cab-887c-ed183726ad37.jfif,True,02/26/2026 11:59:29
+8,Cadillac,Escalade,2025,280000000,Metallic Red," Known for its high-performance, luxurious, and sometimes armored, opulent design suitable for VIP transport.",/images/cars/a40c809e-84e8-4da7-b0a3-92ee8779480f.jfif,True,02/26/2026 12:00:41
+9,Ferrari,Purosangue,2025,1500000000,Black,"The Ferrari Purosangue is an Italian high-performance, 4-door, 4-seater luxury SUV (referred to as a Ferrari Utility Vehicle - FUV).",/images/cars/af5f13fc-3c12-4ab6-a3b9-3f8f8429b9f5.jfif,True,02/26/2026 12:01:56
+10,Mercedes,Maybach GLS 600,2024,200000000,Sodalite Blue,"The Mercedes-Maybach GLS 600 is an ultra-luxury, full-size SUV based on the GLS-Class but designed with ultimate comfort, featuring a 4.0L V8 twin-turbo engine (550 horsepower), 23-inch exclusive rims, executive reclining rear seats, a 27-speaker Burmester sound system, and specialized Maybach driving modes.
+",/images/cars/7f232033-515f-45dd-8d85-ffc144e3aa4d.jfif,True,02/26/2026 12:03:27
+11,Lexus,Lx 600,2026,250000000,Black,"It features premium leather, a panoramic roof, and advanced safety.
+",/images/cars/a5dbe7ca-4bae-4151-9609-76b42228682f.jfif,True,02/27/2026 14:05:14

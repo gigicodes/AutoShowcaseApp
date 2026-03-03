@@ -1,0 +1,153 @@
+﻿@model List<AutoShowcaseApp.Models.Car>
+@{
+    ViewData["Title"] = "Manage Cars";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <p style="color:#8b949e; margin:0;">@Model.Count cars in inventory</p>
+    <a href="#add-car-form" class="admin-submit-btn" style="text-decoration:none; display:inline-flex; align-items:center; gap:8px; padding:10px 20px;">
+        <i class="fas fa-plus"></i> Add New Car
+    </a>
+</div>
+
+<div class="dash-table-wrapper">
+    <table class="dash-table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Vehicle</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var car in Model)
+            {
+                <tr>
+                    <td><img src="@car.ImagePath" alt="@car.Make" style="width:70px; height:50px; object-fit:cover; border-radius:6px;" /></td>
+                    <td>
+                        <strong>@car.Year @car.Make @car.Model</strong><br />
+                        <small style="color:#8b949e;"> @car.Color</small>
+                    </td>
+                    <td><strong>₦@car.Price.ToString("N0")</strong></td>
+                    <td>
+                        @if (car.IsAvailable)
+                        {
+                            <span class="status-badge available">Available</span>
+                        }
+                        else
+                        {
+                            <span class="status-badge sold">Sold</span>
+                        }
+                    </td>
+                    <td>
+                        <div class="table-actions">
+                            <a asp-controller="Admin" asp-action="ToggleAvailability" asp-route-id="@car.Id"
+                               class="tbl-btn @(car.IsAvailable ? "tbl-btn-orange" : "tbl-btn-green")" title="Toggle Availability">
+                                <i class="fas @(car.IsAvailable ? "fa-eye-slash" : "fa-eye")"></i>
+                            </a>
+                            <a asp-controller="Car" asp-action="Details" asp-route-id="@car.Id" target="_blank"
+                               class="tbl-btn tbl-btn-blue" title="View Public Listing">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            <a asp-controller="Admin" asp-action="DeleteCar" asp-route-id="@car.Id"
+                               class="tbl-btn tbl-btn-red" title="Delete Car"
+                               onclick="return confirm('Delete this car? This cannot be undone.')">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div style="display:flex; align-items:center; gap:16px; margin-bottom:28px;">
+    <div style="flex:1; height:1px; background:var(--border);"></div>
+    <span style="color:var(--muted); font-size:0.75rem; font-weight:700; letter-spacing:1px; text-transform:uppercase;">
+        Add New Car
+    </span>
+    <div style="flex:1; height:1px; background:var(--border);"></div>
+</div>
+<div class="admin-form-container" id="add-car-form">
+    <form asp-action="AddCar" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <div class="admin-form-grid">
+            <!-- LEFT COLUMN -->
+            <div class="admin-form-section">
+                <div class="admin-form-section-title"><i class="fas fa-info-circle"></i> Vehicle Info</div>
+
+                <div class="admin-field">
+                    <label>Make</label>
+                    <input name="Make" class="admin-input" placeholder="e.g. Toyota" />
+                </div>
+                <div class="admin-field">
+                    <label>Model</label>
+                    <input name="Model" class="admin-input" placeholder="e.g. Camry" />
+                </div>
+                <div class="admin-field-row">
+                    <div class="admin-field">
+                        <label>Year</label>
+                        <input name="Year" type="number" class="admin-input" placeholder="2023" />
+                    </div>
+                    <div class="admin-field">
+                        <label>Color</label>
+                        <input name="Color" class="admin-input" placeholder="Pearl White" />
+                    </div>
+                </div>
+                <div class="admin-field">
+                    <label>Price (₦)</label>
+                    <input name="Price" type="number" step="0.01" class="admin-input" placeholder="0.00" />
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN -->
+            <div class="admin-form-section">
+                <div class="admin-form-section-title"><i class="fas fa-sliders-h"></i> Specifications</div>
+                <div class="admin-field">
+                    <label>Description</label>
+                    <textarea name="Description" class="admin-input" rows="4" placeholder="Describe the vehicle..."></textarea>
+                </div>
+
+                <div class="admin-form-section-title mt-3"><i class="fas fa-image"></i> Car Image</div>
+                <div class="admin-field">
+                    <div class="image-upload-area" id="uploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Click to upload or drag & drop</p>
+                        <small>PNG, JPG up to 5MB</small>
+                        <input type="file" name="imageFile" id="imageFile" accept="image/*" onchange="previewImage(event)" />
+                    </div>
+                    <img id="imagePreview" src="" alt="Preview" style="display:none; max-width:100%; border-radius:8px; margin-top:10px;" />
+                </div>
+
+                <div class="admin-field">
+                    <label class="admin-check-label">
+                        <input name="IsAvailable" type="checkbox" class="admin-check" /> Available for Sale
+                    </label>
+                </div>
+
+                <button type="submit" class="admin-submit-btn">
+                    <i class="fas fa-plus"></i> Add Car to Inventory
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        function previewImage(event) {
+            const preview = document.getElementById('imagePreview');
+            preview.src = URL.createObjectURL(event.target.files[0]);
+            preview.style.display = 'block';
+        }
+            @if (TempData["Success"] != null)
+        {
+                <text>window.scrollTo({ top: 0, behavior: 'smooth' });</text>
+        }
+    </script>
+}

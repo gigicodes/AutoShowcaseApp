@@ -1,0 +1,49 @@
+﻿@model List<AutoShowcaseApp.Models.Inquiry>
+@{
+    ViewData["Title"] = "Inquiries";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var cars = ViewBag.Cars as List<AutoShowcaseApp.Models.Car> ?? new();
+}
+
+<div class="dash-table-wrapper">
+    <table class="dash-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Customer</th>
+                <th>Contact</th>
+                <th>Car</th>
+                <th>Message</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var inq in Model)
+            {
+                var car = cars.FirstOrDefault(c => c.Id == inq.CarId);
+                <tr>
+                    <td>@inq.Id</td>
+                    <td><strong>@inq.Name</strong></td>
+                    <td>
+                        <a href="mailto:@inq.Email" style="color:#58a6ff;">@inq.Email</a><br />
+                        <small>@inq.Phone</small>
+                    </td>
+                    <td>
+                        @if (car != null)
+                        {
+                            <span class="id-badge">@car.Year @car.Make @car.Model</span>
+                        }
+                        else
+                        {
+                            <span class="id-badge">Car #@inq.CarId</span>
+                        }
+                    </td>
+                    <td style="max-width:250px;">
+                        <span title="@inq.Message">@(inq.Message?.Length > 60 ? inq.Message[..60] + "…" : inq.Message)</span>
+                    </td>
+                    <td>@inq.DateSubmitted.ToString("dd MMM yyyy, HH:mm")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

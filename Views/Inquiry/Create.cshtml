@@ -1,0 +1,55 @@
+﻿@model AutoShowcaseApp.Models.Inquiry
+@{
+    ViewData["Title"] = "Make an Inquiry";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var car = ViewBag.Car as AutoShowcaseApp.Models.Car;
+}
+
+<div class="inquiry-page">
+    <div class="container">
+        <div class="inquiry-wrapper">
+            <div class="inquiry-car-info">
+                <img src="@car?.ImagePath" alt="@car?.Make @car?.Model" />
+                <div class="inquiry-car-details">
+                    <span class="section-tag">INQUIRING ABOUT</span>
+                    <h2>@car?.Year @car?.Make @car?.Model</h2>
+                    <div class="inquiry-price">₦@car?.Price.ToString("N0")</div>
+                </div>
+            </div>
+
+            <div class="inquiry-form-area">
+                <h3>Your Details</h3>
+                <form asp-action="Create" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="CarId" />
+
+                    <div class="form-group">
+                        <label asp-for="Name">Full Name *</label>
+                        <input asp-for="Name" class="form-control" placeholder="John Doe" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-row-two">
+                        <div class="form-group">
+                            <label asp-for="Email">Email *</label>
+                            <input asp-for="Email" type="email" class="form-control" placeholder="you@email.com" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Phone">Phone</label>
+                            <input asp-for="Phone" class="form-control" placeholder="+234 800 000 0000" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Message">Message</label>
+                        <textarea asp-for="Message" class="form-control" rows="4"
+                                  placeholder="I am interested in this vehicle and would like more information..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit-inquiry">
+                        Send Inquiry <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

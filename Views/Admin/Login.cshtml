@@ -1,0 +1,69 @@
+﻿@model AutoShowcaseApp.Models.LoginModel
+@{
+    ViewData["Title"] = "Admin Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login — AutoShowcase</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body class="admin-login-body">
+
+    <div class="admin-login-page">
+        <div class="admin-login-left">
+            <div class="login-brand">⬡ AUTOSHOWCASE</div>
+            <h2>Welcome Back,<br />Administrator.</h2>
+            <p>Manage your inventory, track inquiries, and keep your dealership running.</p>
+            <div class="login-decoration">
+                <div class="deco-line"></div>
+                <div class="deco-line short"></div>
+            </div>
+        </div>
+
+        <div class="admin-login-right">
+            <div class="login-card">
+                <div class="login-card-header">
+                    <i class="fas fa-user-shield"></i>
+                    <h3>Admin Access</h3>
+                    <p>Enter your credentials to continue</p>
+                </div>
+
+                <form asp-action="Login" method="post">
+                    @Html.AntiForgeryToken()
+                    @if (ViewData.ModelState.ErrorCount > 0)
+                    {
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            Invalid username or password.
+                        </div>
+                    }
+
+                    <div class="login-field">
+                        <label><i class="fas fa-user me-2"></i>Username</label>
+                        <input asp-for="Username" class="form-control login-input" placeholder="Enter username" />
+                    </div>
+                    <div class="login-field">
+                        <label><i class="fas fa-lock me-2"></i>Password</label>
+                        <input asp-for="Password" type="password" class="form-control login-input" placeholder="Enter password" />
+                    </div>
+
+                    <button type="submit" class="btn-login-submit">
+                        Sign In <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+                <a asp-controller="Home" asp-action="Index" class="login-back-link">
+                    ← Back to Public Site
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+﻿@model List<AutoShowcaseApp.Models.Car>
+@{
+    ViewData["Title"] = "Available Cars";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="cars-page">
+
+    <!-- PAGE HEADER -->
+    <div class="cars-page-header">
+        <div class="container">
+            <div class="cars-header-inner">
+                <div>
+                    <span class="section-tag">IN STOCK</span>
+                    <h1>Available <em>Vehicles</em></h1>
+                </div>
+                <div class="cars-count-badge">@Model.Count Cars Found</div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CAR STRIPS -->
+    <div class="car-strips-container">
+
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            var car = Model[i];
+            bool isEven = i % 2 == 0;
+            <div class="car-strip @(isEven ? "" : "car-strip-reverse")">
+                <div class="car-strip-image">
+                    <img src="@car.ImagePath" alt="@car.Year @car.Make @car.Model" onerror="this.src='/images/cars/default.jpg'" />
+                    <div class="car-strip-number">@((i + 1).ToString("D2"))</div>
+                </div>
+                <div class="car-strip-content">
+                    <h2 class="car-strip-title">
+                        <span>@car.Make</span>
+                        @car.Model
+                    </h2>
+                    <div class="car-strip-year">@car.Year</div>
+					<div class="car-strip-specs">
+                        <div class="spec-pill"><i class="fas fa-palette"></i> @car.Color</div>
+                    </div>
+                    <p class="car-strip-desc">@(car.Description.Length > 120 ? car.Description[..120] + "…" : car.Description)</p>
+                    <div class="car-strip-price-row">
+                        <div class="car-strip-price">₦@car.Price.ToString("N0")</div>
+                        <a asp-controller="Inquiry" asp-action="Create" asp-route-carId="@car.Id"
+                           class="btn-inquire">Make an Inquiry <i class="fas fa-paper-plane"></i></a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+    @if (TempData["InquirySuccess"]?.ToString() == "true")
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Inquiry Sent!',
+                text: 'We have received your inquiry and will contact you shortly.',
+                confirmButtonColor: '#2563eb',
+                confirmButtonText: 'Go to Available Cars',
+                timer: 8000,
+                timerProgressBar: true,
+            });
+        </script>
+    }
+}

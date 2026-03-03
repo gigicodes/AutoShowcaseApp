@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var recentInquiries = ViewBag.RecentInquiries as List<AutoShowcaseApp.Models.Inquiry> ?? new();
+}
+
+<!-- STAT CARDS -->
+<div class="dash-stats">
+    <div class="dash-stat-card">
+        <div class="dash-stat-icon icon-blue"><i class="fas fa-car"></i></div>
+        <div class="dash-stat-content">
+            <div class="dash-stat-value">@ViewBag.TotalCars</div>
+            <div class="dash-stat-label">Total Cars</div>
+        </div>
+        <div class="dash-stat-bg">CARS</div>
+    </div>
+    <div class="dash-stat-card">
+        <div class="dash-stat-icon icon-green"><i class="fas fa-check-circle"></i></div>
+        <div class="dash-stat-content">
+            <div class="dash-stat-value">@ViewBag.AvailableCars</div>
+            <div class="dash-stat-label">Available Now</div>
+        </div>
+        <div class="dash-stat-bg">LIVE</div>
+    </div>
+    <div class="dash-stat-card">
+        <div class="dash-stat-icon icon-orange"><i class="fas fa-envelope-open-text"></i></div>
+        <div class="dash-stat-content">
+            <div class="dash-stat-value">@ViewBag.TotalInquiries</div>
+            <div class="dash-stat-label">Total Inquiries</div>
+        </div>
+        <div class="dash-stat-bg">MSGS</div>
+    </div>
+</div>
+
+<!-- QUICK ACTIONS -->
+<div class="dash-section-title">Quick Actions</div>
+<div class="dash-actions">
+    <a asp-controller="Admin" asp-action="ManageCars" class="dash-action-btn">
+        <i class="fas fa-list"></i>
+        <span>Manage Cars</span>
+    </a>
+    <a asp-controller="Admin" asp-action="Inquiries" class="dash-action-btn">
+        <i class="fas fa-inbox"></i>
+        <span>View Inquiries</span>
+    </a>
+    <a asp-controller="Car" asp-action="Index" target="_blank" class="dash-action-btn secondary">
+        <i class="fas fa-external-link-alt"></i>
+        <span>View Public Site</span>
+    </a>
+</div>
+
+<!-- RECENT INQUIRIES -->
+<div class="dash-section-title">Recent Inquiries</div>
+@if (!recentInquiries.Any())
+{
+    <div class="dash-empty">No inquiries yet.</div>
+}
+else
+{
+    <div class="dash-table-wrapper">
+        <table class="dash-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Car ID</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var inq in recentInquiries)
+                {
+                    <tr>
+                        <td>@inq.Id</td>
+                        <td><strong>@inq.Name</strong></td>
+                        <td>@inq.Email</td>
+                        <td>@(string.IsNullOrEmpty(inq.Phone) ? "—" : inq.Phone)</td>
+                        <td><span class="id-badge">Car #@inq.CarId</span></td>
+                        <td>@inq.DateSubmitted.ToString("dd MMM, HH:mm")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a asp-controller="Admin" asp-action="Inquiries" class="dash-view-all">View All Inquiries →</a>
+}
