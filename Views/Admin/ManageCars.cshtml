@@ -48,7 +48,7 @@
                                class="tbl-btn @(car.IsAvailable ? "tbl-btn-orange" : "tbl-btn-green")" title="Toggle Availability">
                                 <i class="fas @(car.IsAvailable ? "fa-eye-slash" : "fa-eye")"></i>
                             </a>
-                            <a asp-controller="Car" asp-action="Details" asp-route-id="@car.Id" target="_blank"
+                            <a asp-controller="Car" asp-action="Index" asp-route-id="@car.Id" target="_blank"
                                class="tbl-btn tbl-btn-blue" title="View Public Listing">
                                 <i class="fas fa-external-link-alt"></i>
                             </a>
